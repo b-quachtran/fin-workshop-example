@@ -1,0 +1,11 @@
+version: "2.0"
+stories:
+- story: sad path 2 (/var/folders/wc/lzjxcb8j28b2cvrwl9jv9k_h0000gn/T/tmpgf0c8xfi/86369cba970b426a94acea4d03df1ab0_test_stories.yml)
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny  # predicted: nlu_fallback: not really
+  - action: utter_goodbye

@@ -1,0 +1,112 @@
+version: "2.0"
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_ask_payment_amount:
+  - text: "What is the payment amount?"
+
+  utter_ask_source_account:
+  - text: "What is the source account?"
+
+  utter_ask_destination_account:
+  - text: "What is the destination account?"
+
+  utter_ask_payment_date:
+  - text: "When would you like to submit the payment?"
+
+  utter_ask_confirm:
+  - text: "Can you confirm these payment details?"
+
+  utter_submit_payment:
+  - text: "Thank you! Your payment has been submitted :)"
+
+  utter_info_has_been_updated:
+  - text: "Thanks! That information has been updated :)"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - update_information
+  - inform
+  - check_account_balance
+  - pay_cc
+
+entities:
+  - amount-of-money
+  - account
+  - time
+  - account_type
+
+actions:
+  - action_update_information
+  - action_check_account_balance
+  - validate_cc_payment_form
+
+slots:
+  amount-of-money:
+    type: any
+  payment_amount:
+    type: any
+  source_account:
+    type: text
+    influence_conversation: false
+  destination_account:
+    type: text
+    influence_conversation: false
+  payment_date:
+    type: text
+    influence_conversation: false
+  confirm:
+    type: any
+
+forms:
+  cc_payment_form:
+    payment_amount:
+    - type: from_entity
+      entity: amount-of-money
+    source_account:
+    - type: from_entity
+      entity: account
+    destination_account:
+    - type: from_entity
+      entity: account
+    payment_date:
+    - type: from_entity
+      entity: time
+    confirm:
+    - type: from_intent
+      intent: affirm
+      value: yes
+    - type: from_intent
+      intent: deny
+      value: no
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+

@@ -1,0 +1,37 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Activate cc_payment_form
+  steps:
+  - intent: pay_cc
+  - action: cc_payment_form
+  - active_loop: cc_payment_form
+
+- rule: Deactivate cc_payment_form
+  condition:
+  - active_loop: cc_payment_form
+  steps:
+  - action: cc_payment_form
+  - active_loop: null
+  - action: utter_submit_payment
+
+- rule: Account Balance
+  steps:
+  - intent: check_account_balance
+  - action: action_check_account_balance
+
+- rule: Update information
+  steps:
+  - intent: update_information
+  - action: utter_info_has_been_updated
